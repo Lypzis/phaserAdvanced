@@ -1,24 +1,19 @@
 /* eslint-disable */
-class Boot {
+class Game{
+  
+      init() {
+        this.input.maxPointers = 1;
+        this.stage.disableVisibilityChange = true;
+      }
 
-    constructor(game){
-        this.game = game;
-    }
+      preload() {
+        this.load.image('preloaderBar', './assets/preloader.png');
+      }
 
-    init(maxPointers, disableVisibilityChange){
-        this.game.input.maxPointers = maxPointers;
-        this.game.stage.disableVisibilityChange = disableVisibilityChange;
-    }
-
-    preload(key, imagePath){
-       let image;
-       return image = this.game.load.image(key, imagePath);
-    }
-
-    create(preloaderKey){
-        this.game.state.start(preloaderKey);
-    }
-
+      create() {
+        this.state.start('Preloader');
+      }
+      
 }
 
-module.exports = Boot;
+module.exports = Game;
