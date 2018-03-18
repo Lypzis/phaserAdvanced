@@ -36,6 +36,8 @@ class Game {
             this.load.setPreloadSprite(this.preloadBar);
 
             //load all assets
+            this.load.tilemap('map', './assets/level1.csv');
+            this.load.image('tileset', './assets/tileSet.png');
         }
 
         create() {
@@ -48,9 +50,18 @@ module.exports = Game;
 },{}],3:[function(require,module,exports){
 /* eslint-disable */
 class Game{
+
+        constructor(){
+            this.map = null;
+            this.layer = null;
+        }
   
         create() {
             this.stage.backgroundColor = '#3A5963'; 
+            this.map = this.add.tilemap('map', 64, 64);
+            this.map.addTilesetImage('tileset');
+            this.layer = this.map.createLayer(0); 
+            this.layer.resizeWorld();
         }
 
         update() {
