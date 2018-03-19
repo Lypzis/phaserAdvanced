@@ -79,7 +79,6 @@ const Preloader = require('./Preloader.js');
 //const MainMenu = require('./MainMenu.js');
 const Level1 = require('./level1');
 
-//REFAZER DESDE O COMEÇO???
 const boot = new Boot();
 const preloader = new Preloader();
 //const mainMenu = new MainMenu();

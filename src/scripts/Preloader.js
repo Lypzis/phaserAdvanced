@@ -17,6 +17,8 @@ class Game {
             //load all assets
             this.load.tilemap('map', './assets/level1.csv');
             this.load.image('tileset', './assets/tileSet.png');
+
+            this.load.spritesheet('player', './assets/player.png')
         }
 
         create() {
