@@ -6,7 +6,7 @@ class Game{
             this.layer = null;
             this.player = null;
             this.controls = {};
-            this.playerSpeed = 50;
+            this.playerSpeed = 5;
             this.jumpTimer = 0;
         }
   
