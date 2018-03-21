@@ -36,7 +36,7 @@ class Game {
             this.load.setPreloadSprite(this.preloadBar);
 
             //load all assets
-            this.load.tilemap('map', './assets/level1.csv');
+            this.load.tilemap('map', './assets/level1.csv'); //try using a JSON
             this.load.image('tileset', './assets/tileSet.png');
 
             this.load.spritesheet('player', './assets/player.png', 24, 26,)
@@ -128,7 +128,7 @@ class Game{
 module.exports = Game;
 },{}],4:[function(require,module,exports){
 /* eslint-disable */
-const game = new Phaser.Game(800, 600, Phaser.CANVAS, ""); //"gameDiv"
+const game = new Phaser.Game(800, 600, Phaser.AUTO, ""); //"gameDiv"
 const Boot = require('./Boot.js');
 const Preloader = require('./Preloader.js');
 //const MainMenu = require('./MainMenu.js');

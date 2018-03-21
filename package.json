@@ -2,12 +2,13 @@
   "name": "phaser_advanced",
   "productName": "phaser_advanced",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Phaser advanced tutorial.",
   "main": "src/index.js",
   "scripts": {
-    "bundle":"browserify ./src/scripts/main.js -o./src/bundle.js",
-    "start": "yarn bundle && electron-forge start",
-    "package": "yarn bundle && electron-forge package",
+    "bundle": "browserify ./src/scripts/main.js -o ./src/bundle.js",
+    "electron": "npm run bundle && electron .",
+    "start": "npm run bundle && electron-forge start",
+    "package": "npm run bundle && electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint src --color"
@@ -30,7 +31,7 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "yarn",
+        "packageManager": "npm",
         "asar": true
       },
       "electronWinstallerConfig": {
@@ -49,6 +50,7 @@
     }
   },
   "dependencies": {
+    "electron": "^1.8.4",
     "electron-compile": "^6.4.2",
     "electron-squirrel-startup": "^1.0.0",
     "phaser-ce": "^2.10.2"

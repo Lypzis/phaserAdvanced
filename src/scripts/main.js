@@ -1,5 +1,5 @@
 /* eslint-disable */
-const game = new Phaser.Game(800, 600, Phaser.CANVAS, ""); //"gameDiv"
+const game = new Phaser.Game(800, 600, Phaser.AUTO, ""); //"gameDiv"
 const Boot = require('./Boot.js');
 const Preloader = require('./Preloader.js');
 //const MainMenu = require('./MainMenu.js');
