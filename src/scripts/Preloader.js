@@ -13,7 +13,7 @@ class Game {
             this.time.advancedTiming = true;
 
             this.load.setPreloadSprite(this.preloadBar);
-
+            
             //load all assets
             this.load.tilemap('map', './assets/level1.csv'); //try using a JSON //BIG ISSUE HERE
             this.load.image('tileset', './assets/tileSet.png');

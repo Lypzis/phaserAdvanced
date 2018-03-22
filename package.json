@@ -6,9 +6,9 @@
   "main": "src/index.js",
   "scripts": {
     "bundle": "browserify ./src/scripts/main.js -o ./src/bundle.js",
-    "electron": "npm run bundle && electron .",
-    "start": "npm run bundle && electron-forge start",
-    "package": "npm run bundle && electron-forge package",
+    "electron": "yarn bundle && electron .",
+    "start": "yarn bundle && electron-forge start",
+    "package": "yarn bundle && electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint src --color"
@@ -31,7 +31,7 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm",
+        "packageManager": "yarn",
         "asar": true
       },
       "electronWinstallerConfig": {
