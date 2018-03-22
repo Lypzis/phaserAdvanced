@@ -19,6 +19,8 @@ class Game {
             this.load.image('tileset', './assets/tileSet.png');
 
             this.load.spritesheet('player', './assets/player.png', 24, 26,)
+        
+            this.load.spritesheet('buttons', './assets/buttons.png', 193, 71);
         }
 
         create() {

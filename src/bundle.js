@@ -40,6 +40,8 @@ class Game {
             this.load.image('tileset', './assets/tileSet.png');
 
             this.load.spritesheet('player', './assets/player.png', 24, 26,)
+        
+            this.load.spritesheet('buttons', './assets/buttons.png', 193, 71);
         }
 
         create() {
@@ -60,6 +62,7 @@ class Game{
             this.controls = {};
             this.playerSpeed = 5;
             this.jumpTimer = 0;
+            this.button = null;
         }
   
         create() {
@@ -93,6 +96,11 @@ class Game{
                 up: this.input.keyboard.addKey(Phaser.Keyboard.W)
             }
 
+            this.button = this.add.button(this.world.centerX - 95, this.world.centerY + 200, 'buttons', function(){
+                console.log('pressed tha buttan');
+            }, this, 2, 1, 0, 1); 
+
+
 
         }
 
@@ -101,10 +109,9 @@ class Game{
             this.physics.arcade.collide(this.player, this.layer);
 
             if (this.controls.up.isDown && (this.player.body.onFloor() || this.player.body.touching.down) && this.time.now > this.jumpTimer){
-                console.log('Hi there!');
-                this.player.animations.play('jump');
                 this.player.body.velocity.y = -700;
                 this.jumpTimer = this.time.now + 750;
+                this.player.animations.play('jump');
             } 
             else if (this.controls.right.isDown){
                 this.player.animations.play('run');
