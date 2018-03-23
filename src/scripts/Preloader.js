@@ -15,7 +15,7 @@ class Game {
             this.load.setPreloadSprite(this.preloadBar);
             
             //load all assets
-            this.load.tilemap('map', './assets/level1.csv'); //try using a JSON //BIG ISSUE HERE
+            this.load.tilemap('map', './assets/level1.txt'); //It's a CSV in form of txt 
             this.load.image('tileset', './assets/tileSet.png');
 
             this.load.spritesheet('player', './assets/player.png', 24, 26,)

@@ -36,7 +36,7 @@ class Game {
             this.load.setPreloadSprite(this.preloadBar);
             
             //load all assets
-            this.load.tilemap('map', './assets/level1.csv'); //try using a JSON //BIG ISSUE HERE
+            this.load.tilemap('map', './assets/level1.txt'); //try using a JSON //BIG ISSUE HERE
             this.load.image('tileset', './assets/tileSet.png');
 
             this.load.spritesheet('player', './assets/player.png', 24, 26,)
@@ -99,6 +99,9 @@ class Game{
             this.button = this.add.button(this.world.centerX - 95, this.world.centerY + 200, 'buttons', function(){
                 console.log('pressed tha buttan');
             }, this, 2, 1, 0, 1); 
+
+            //fix button to follow the camera
+            this.button.fixedToCamera = true;
 
 
 

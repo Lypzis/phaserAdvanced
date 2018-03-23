@@ -47,7 +47,7 @@ class Game{
             }, this, 2, 1, 0, 1); 
 
             //fix button to follow the camera
-            button.fixedToCamera = true;
+            this.button.fixedToCamera = true;
 
 
 
