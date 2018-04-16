@@ -23,6 +23,8 @@ class Game{
 
             this.map.setCollisionBetween(0, 2);
 
+            this.map.setTileIndexCallback(1, this.resetPlayer, this);
+
             this.player = this.add.sprite(100, 560, 'player');
 
             this.player.anchor.setTo(0.5, 0.5);
@@ -42,7 +44,8 @@ class Game{
                 up: this.input.keyboard.addKey(Phaser.Keyboard.W)
             }
 
-            this.button = this.add.button(this.world.centerX - 95, this.world.centerY + 200, 'buttons', function(){
+            this.button = this.add.button(this.world.centerX - ((this.world.centerX / 2) - 100), 
+                                        this.world.centerY + 200, 'buttons', function(){
                 console.log('pressed tha buttan');
             }, this, 2, 1, 0, 1); 
 
@@ -77,6 +80,10 @@ class Game{
                 this.player.body.velocity.x = 0;
             }
 
+        }
+
+        resetPlayer(){
+            this.player.reset(100, 560);
         }
     
 }
