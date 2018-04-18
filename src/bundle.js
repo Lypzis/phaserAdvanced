@@ -29,7 +29,7 @@ class Game {
         preload() {
             this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloaderBar');
         
-            this.preloadBar.anchor.setTo(0.5, 0.5);
+            this.preloadBar.anchor.setTo(0.5, 0.5); //relative position from its initial place
 
             this.time.advancedTiming = true;
 
@@ -42,6 +42,12 @@ class Game {
             this.load.spritesheet('player', './assets/player.png', 24, 26,)
         
             this.load.spritesheet('buttons', './assets/buttons.png', 193, 71);
+
+            this.load.image('drag', './assets/item.png');
+
+            this.load.image('bird', './assets/bird.png');
+
+
         }
 
         create() {
@@ -63,6 +69,8 @@ class Game{
             this.playerSpeed = 5;
             this.jumpTimer = 0;
             this.button = null;
+            this.drag = null;
+            this.bird = null;
         }
   
         create() {
@@ -77,7 +85,8 @@ class Game{
 
             this.map.setCollisionBetween(0, 2);
 
-            this.map.setTileIndexCallback(1, this.resetPlayer, this);
+            this.map.setTileIndexCallback(5, this.resetPlayer, this);
+            this.map.setTileIndexCallback(6, this.getCoin, this);
 
             this.player = this.add.sprite(100, 560, 'player');
 
@@ -106,8 +115,14 @@ class Game{
             //fix button to follow the camera
             this.button.fixedToCamera = true;
 
+            //draggable object
+            this.drag = this.add.sprite(this.player.x, this.player.y, 'drag');
+            this.drag.anchor.setTo(0.5, 0.5);
+            this.drag.inputEnabled = true; 
+            this.drag.input.enableDrag(true); //enable the object to be draggable
 
-
+            // generating an enemy
+            this.enemyBird(0, this, this.player.x + 575, this.player.y - 250);
         }
 
         update() {
@@ -134,10 +149,43 @@ class Game{
                 this.player.body.velocity.x = 0;
             }
 
+            if (this.checkOverlap(this.player, this.bird)){
+                this.resetPlayer();
+            }
+
         }
 
         resetPlayer(){
             this.player.reset(100, 560);
+        }
+
+        getCoin(){
+            this.map.putTile(-1, this.layer.getTileX(this.player.x), this.layer.getTileY(this.player.y));
+        }
+
+        // Enemy generator
+        enemyBird(index, game, x, y){
+            game.bird = game.add.sprite(x, y, 'bird');
+            game.bird.anchor.setTo(0.5, 0.5);
+            game.bird.name = index.toString();
+            game.physics.enable(game.bird, Phaser.Physics.ARCADE);
+            
+            let birdBody = game.bird.body;
+
+            birdBody.immovable = true;
+            birdBody.colliderWorldBounds = true;
+            birdBody.allowGravity = false;
+
+            game.birdTween = game.add.tween(game.bird).to({
+                y: game.bird.y + 175
+            }, 2000, 'Linear', true, 0, 100, true);
+        }
+
+        checkOverlap(spriteA, spriteB){
+            let boundsA = spriteA.getBounds();
+            let boundsB = spriteB.getBounds();
+
+            return Phaser.Rectangle.intersects(boundsA, boundsB);
         }
     
 }
