@@ -26,7 +26,7 @@ class Game {
 
             this.load.image('bird', './assets/bird.png');
 
-
+            this.load.image('nut', './assets/nut.png'); 
         }
 
         create() {

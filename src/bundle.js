@@ -47,7 +47,7 @@ class Game {
 
             this.load.image('bird', './assets/bird.png');
 
-
+            this.load.image('nut', './assets/nut.png'); 
         }
 
         create() {
@@ -71,6 +71,8 @@ class Game{
             this.button = null;
             this.drag = null;
             this.bird = null;
+            this.shootTime = 0;
+            this.nuts = null;
         }
   
         create() {
@@ -104,7 +106,8 @@ class Game{
             this.controls = {
                 right: this.input.keyboard.addKey(Phaser.Keyboard.D),
                 left: this.input.keyboard.addKey(Phaser.Keyboard.A),
-                up: this.input.keyboard.addKey(Phaser.Keyboard.W)
+                up: this.input.keyboard.addKey(Phaser.Keyboard.W),
+                shoot: this.input.keyboard.addKey(Phaser.Keyboard.UP)
             }
 
             this.button = this.add.button(this.world.centerX - ((this.world.centerX / 2) - 100), 
@@ -123,11 +126,24 @@ class Game{
 
             // generating an enemy
             this.enemyBird(0, this, this.player.x + 575, this.player.y - 250);
+        
+            // create "bullets"
+            this.nuts = this.add.group();
+            this.nuts.enableBody = true;
+            this.nuts.physicsBodyType = Phaser.Physics.ARCADE;
+            this.nuts.createMultiple(5, 'nut');
+            this.nuts.setAll('anchor.x', 0.5);
+            this.nuts.setAll('anchor.y', 0.5);
+            this.nuts.setAll('scale.X', 0.5);
+            this.nuts.setAll('scale.y', 0.5);
+            this.nuts.setAll('outOfBoundsKill', true);
+            this.nuts.setAll('checkWorldBounds', true);
         }
 
         update() {
 
             this.physics.arcade.collide(this.player, this.layer);
+            this.physics.arcade.collide(this.player, this.bird, this.resetPlayer.bind(this.player));
 
             if (this.controls.up.isDown && (this.player.body.onFloor() || this.player.body.touching.down) && this.time.now > this.jumpTimer){
                 this.player.body.velocity.y = -700;
@@ -149,14 +165,19 @@ class Game{
                 this.player.body.velocity.x = 0;
             }
 
-            if (this.checkOverlap(this.player, this.bird)){
-                this.resetPlayer();
+            if (this.controls.shoot.isDown){
+                this.shootNut();
+            }
+
+            if(this.checkOverlap(this.nuts, this.bird)){
+                this.bird.kill();
             }
 
         }
 
-        resetPlayer(){
-            this.player.reset(100, 560);
+        resetPlayer(player){
+            console.log('I\'ve got called')
+            player.reset(100, 560);
         }
 
         getCoin(){
@@ -181,11 +202,23 @@ class Game{
             }, 2000, 'Linear', true, 0, 100, true);
         }
 
+        //check collisions between characters and elements
         checkOverlap(spriteA, spriteB){
             let boundsA = spriteA.getBounds();
             let boundsB = spriteB.getBounds();
 
             return Phaser.Rectangle.intersects(boundsA, boundsB);
+        }
+
+        shootNut(){
+            if(this.time.now > this.shootTime){
+                let nut = this.nuts.getFirstExists(false);
+                if(nut){
+                    nut.reset(this.player.x, this.player.y);
+                    nut.body.velocity.y = -600;
+                    this.shootTime = this.time.now + 900;
+                }
+            }
         }
     
 }
