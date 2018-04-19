@@ -27,10 +27,15 @@ class Game {
             this.load.image('bird', './assets/bird.png');
 
             this.load.image('nut', './assets/nut.png'); 
+
+            this.load.image('titlescreen', './assets/titlescreen.png');
+        
+            this.load.image('button', './assets/buttons.png');
         }
 
         create() {
-            this.state.start('Level1');
+            //first thing on the screen
+            this.state.start('MainMenu');
         }
 
 }
